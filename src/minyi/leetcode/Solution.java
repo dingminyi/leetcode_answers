@@ -6,6 +6,99 @@ import java.util.*;
  * Created by minyidin on 7/4/2016.
  */
 public class Solution {
+    //////////////////////////////////////////////////////
+    public boolean isIsomorphic(String s, String t) {
+        return getPattern(s).equals(getPattern(t));
+    }
+
+    public String getPattern(String s){
+        char[] array = s.toCharArray();
+        StringBuilder sb = new StringBuilder();
+        HashMap<Character,Integer> map = new HashMap<Character,Integer>();
+        int index = 0;
+        for(char c:array){
+            if(map.containsKey(c)){
+                int v = map.get(c);
+                sb.append(v);
+            }else{
+                map.put(c,index);
+                sb.append(index);
+                index++;
+            }
+        }
+        return sb.toString();
+    }
+    /////////////////////////////////////////////////////////////
+    public boolean isHappy(int n) {
+        HashSet<Integer> set = new HashSet<Integer>();
+        while(set.add(n)){
+            int target = n;
+            int sum = 0;
+            while(target>0){
+                int remain = target % 10;
+                sum = sum + remain * remain;
+                target = target / 10;
+            }
+            n = sum;
+            if(sum == 1){
+                return true;
+            }
+        }
+        return false;
+    }
+    //////////////////////////////////////////////////////////////////
+    public String getHint(String secret, String guess) {
+        HashMap<Character,Integer> secretMap = new HashMap<Character,Integer>();
+        int bullNum = 0;
+
+        for(int i = 0; i<secret.length();i++){
+            char c = secret.charAt(i);
+            if(guess.charAt(i) == c) bullNum++;
+            if(!secretMap.containsKey(c)){
+                secretMap.put(c,1);
+            }else{
+                secretMap.put(c,secretMap.get(c) + 1);
+            }
+        }
+        // count cow
+        int tempCount = 0;
+        for(int i = 0; i<guess.length();i++){
+            char c = guess.charAt(i);
+            if(secretMap.containsKey(c)){
+                if(secretMap.get(c) > 1){
+                    secretMap.put(c,secretMap.get(c) - 1);
+                    tempCount++;
+                }else{
+                    secretMap.remove(c);
+                    tempCount++;
+                }
+            }
+        }
+        return bullNum + "A" + (tempCount - bullNum) + "B";
+    }
+    /////////////////////////////////////////////////////////////////
+    public boolean wordPattern(String pattern, String str) {
+        if(pattern.trim().length() == 0 || str.trim().length() == 0) return false;
+        String p1 = getPattern2(pattern.split(""));
+        String p2 = getPattern2(str.split(" "));
+        return p1.equals(p2);
+    }
+    public String getPattern2(String[] stringArray){
+        HashMap<String,Integer> map = new HashMap<String,Integer>();
+        StringBuffer sb = new StringBuffer();
+        int currentFlag = 0;
+        for(String str:stringArray){
+            if(map.containsKey(str)){
+                sb.append(map.get(str));
+            }else{
+                map.put(str,currentFlag);
+                sb.append(currentFlag);
+                currentFlag++;
+            }
+        }
+        return sb.toString();
+
+    }
     /////////////////////////////////////////
     public boolean containsNearbyDuplicate(int[] nums, int k) {
         HashMap<Integer,ArrayList> map = new HashMap<Integer,ArrayList>();
