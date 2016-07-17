@@ -538,10 +538,58 @@ public class Solution {
         return dummyHead.next;
     }
     /////////////////////////////////////////////
-//    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-//
-//    }
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode lnA = headA;
+        ListNode lnB = headB;
+        if(lnA == null || lnB == null) return null;
+
+        if(getLastNode(lnA).val != getLastNode(lnB).val) return null;
+
+        while(true){
+            if(lnA.val == lnB.val){
+                return lnA;
+            }
+            if (lnA.next != null){
+                lnA = lnA.next;
+            }else{
+                lnA = headB;
+            }
+            if (lnB.next != null){
+                lnB = lnB.next;
+            }else {
+                lnB = headA;
+            }
+        }
+    }
+
+    public ListNode getLastNode(ListNode head){
+        ListNode node = head;
+        ListNode res = head;
+        while(node!=null){
+            res = node;
+            node = node.next;
+        }
+        return res;
+    }
     /////////////////////////////////////////////
+    public ListNode swapPairs(ListNode head) {
+        if(head == null || head.next == null){
+            return head;
+        }
+        ListNode p = head;
+        ListNode tail = new ListNode(-1);
+        ListNode tempHead = tail;
+        while(p!=null && p.next != null){
+            ListNode temp = p.next.next;
+            p.next.next = p;
+            tail.next = p.next;
+            p.next = temp;
+
+            tail = p;
+            p = temp;
+        }
+        return tempHead.next;
+    }
     /////////////////////////////////////////////
     /////////////////////////////////////////////
     /////////////////////////////////////////////
