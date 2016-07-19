@@ -23,6 +23,8 @@ public class Main {
         System.out.println(Arrays.toString(nums2));
         //================119======================
         System.out.println(Arrays.toString(solution.getRow(3).toArray()));
+        //================231======================
+        System.out.println(solution.isPowerOfTwo(536870912));
         solution.test();
     }
 }

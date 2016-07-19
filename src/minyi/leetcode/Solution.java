@@ -591,7 +591,38 @@ public class Solution {
         return tempHead.next;
     }
     /////////////////////////////////////////////
+    public boolean isPowerOfTwo(int n) {
+        double res = Math.log10(n)/Math.log10(2);
+        if(res == (int)res){
+            return true;
+        }else{
+            return false;
+        }
+    }
     /////////////////////////////////////////////
+    public int myAtoi(String str) {
+        str = str.trim();
+        java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("^[+-]{0,1}[0-9]+");
+        java.util.regex.Matcher matcher = pattern.matcher(str);
+        int sum = 0;
+        if(matcher.find()){
+            String res = matcher.group(0);
+            int sign = 1;
+            if(res.charAt(0) == '+' || res.charAt(0) == '-'){
+                if(res.charAt(0) == '-'){
+                    sign = -1;
+                }
+                res = res.substring(1);
+            }
+            char[] array = res.toCharArray();
+            for(int i = 0;i< array.length; i++){
+                sum = sum + (array[array.length-i-1] - '0') * (int)Math.pow(10,i);
+            }
+            return sign * sum;
+        }else{
+            return 0;
+        }
+    }
     /////////////////////////////////////////////
     /////////////////////////////////////////////
     /////////////////////////////////////////////
