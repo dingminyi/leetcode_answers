@@ -616,7 +616,15 @@ public class Solution {
             }
             char[] array = res.toCharArray();
             for(int i = 0;i< array.length; i++){
-                sum = sum + (array[array.length-i-1] - '0') * (int)Math.pow(10,i);
+                if (sum > Integer.MAX_VALUE/10 || ((sum == Integer.MAX_VALUE/10) && (sign==1) && (array[i] - '0')>7)
+                        || ((sum == Integer.MAX_VALUE/10) && (sign==-1) && (array[i] - '0')>8)) {
+                    if (sign == 1){
+                        return Integer.MAX_VALUE;
+                    }else{
+                        return Integer.MIN_VALUE;
+                    }
+                }
+                sum = sum*10 + (array[i] - '0');
             }
             return sign * sum;
         }else{
@@ -624,6 +632,7 @@ public class Solution {
         }
     }
     /////////////////////////////////////////////
+
     /////////////////////////////////////////////
     /////////////////////////////////////////////
     /////////////////////////////////////////////
