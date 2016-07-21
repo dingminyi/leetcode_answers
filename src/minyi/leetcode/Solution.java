@@ -733,6 +733,67 @@ public class Solution {
         return sign * res;
     }
     /////////////////////////////////////////////
+    public String addBinary(String a, String b) {
+        StringBuffer sb = new StringBuffer();
+        char[] arrayA = a.toCharArray();
+        char[] arrayB = b.toCharArray();
+        int maxLength = Math.max(arrayA.length, arrayB.length);
+
+        int carry = 0;
+        for(int i = 0; i < maxLength; i++){
+            int bitA = retriveNumInArray(arrayA, arrayA.length - 1 - i);
+            int bitB = retriveNumInArray(arrayB, arrayB.length - 1 - i);
+            System.out.println("====");
+            System.out.println(bitA);
+            System.out.println(bitB);
+            System.out.println(carry);
+            int sum = (bitA + bitB + carry) % 2;
+            carry = (bitA + bitB + carry) >= 2 ? 1:0;
+            System.out.println("---");
+            System.out.println(sum);
+            System.out.println(carry);
+            System.out.println("====");
+            sb.insert(0,sum);
+        }
+        if(carry == 1){
+            sb.insert(0,carry);
+        }
+        return sb.toString();
+    }
+
+//    public String addBinary(String a, String b) {
+//        char[] arrayA = a.toCharArray();
+//        char[] arrayB = b.toCharArray();
+//        int resNum = binaryCharArrayToInt(arrayA) + binaryCharArrayToInt(arrayB);
+//        return intToBinaryString(resNum);
+//    }
+
+    public int retriveNumInArray(char[] array, int idx){
+        int length = array.length;
+        if(idx >=0 && idx < length){
+            return array[idx] - '0';
+        }else{
+            return 0;
+        }
+    }
+
+    public int binaryCharArrayToInt(char[] array){
+        int sum = 0;
+        for(int i = 0; i < array.length; i++ ){
+            sum = sum * 2 + (array[i]- '0');
+        }
+        return sum;
+    }
+
+    public String intToBinaryString(int n){
+        if(n == 0) return "0";
+        StringBuffer sb = new StringBuffer();
+        while(n != 0){
+            sb.insert(0,n % 2);
+            n /= 2;
+        }
+        return sb.toString();
+    }
     /////////////////////////////////////////////
     /////////////////////////////////////////////
     /////////////////////////////////////////////
