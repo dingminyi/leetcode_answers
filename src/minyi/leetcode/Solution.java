@@ -659,8 +659,79 @@ public class Solution {
         return n>0 && maxPowerOfThree%n==0;
     }
     /////////////////////////////////////////////
+    public int romanToInt(String s) {
+        HashMap<Character,Integer> romanMap = new HashMap<>();
+        romanMap.put('I',1);
+        romanMap.put('V',5);
+        romanMap.put('X',10);
+        romanMap.put('L',50);
+        romanMap.put('C',100);
+        romanMap.put('D',500);
+        romanMap.put('M',1000);
+        int sum = 0;
+        char[] array = s.toCharArray();
+        for(int i = 0; i< array.length; i++){
+            if(i != array.length - 1
+                    && (array[i] == 'I' || array[i] == 'X' || array[i] == 'C')
+                    && romanMap.get(array[i])<romanMap.get(array[i+1])
+                    ){
+                sum = sum + romanMap.get(array[i+1]) - romanMap.get(array[i]);
+                i++;
+            }else{
+                sum += romanMap.get(array[i]);
+            }
+
+        }
+        return sum;
+    }
     /////////////////////////////////////////////
+    public boolean isUgly(int num) {
+        if(num == 0) return false;
+        while(true){
+            if(num%2==0){
+                num = num /2;
+            }else if(num%3==0){
+                num = num /3;
+            }else if(num%5==0){
+                num = num /5;
+            }else{
+                break;
+            }
+        }
+        if(num == 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
     /////////////////////////////////////////////
+    public int reverse(int x) {
+        if(x==Integer.MIN_VALUE) return 0;
+
+        int sign = (x>=0? 1:-1);
+        x = Math.abs(x);
+        java.util.concurrent.LinkedBlockingQueue<Integer> queue = new java.util.concurrent.LinkedBlockingQueue<>();
+        while(x != 0){
+            queue.offer(x%10);
+            x /= 10;
+        }
+        int res = 0;
+        while(queue.peek() != null){
+            if(res > Integer.MAX_VALUE/10){
+                return 0;
+            }else if(res == Integer.MAX_VALUE/10){
+                if(sign == 1 && queue.peek() <= 7){
+                    res = res * 10 + queue.poll();
+                    return res;
+                }else if(sign == -1 && queue.peek() <= 8){
+                    res = sign*res * 10 + sign*queue.poll();
+                    return res;
+                }
+            }
+            res = res * 10 + queue.poll();
+        }
+        return sign * res;
+    }
     /////////////////////////////////////////////
     /////////////////////////////////////////////
     /////////////////////////////////////////////
