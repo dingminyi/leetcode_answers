@@ -795,7 +795,58 @@ public class Solution {
         return sb.toString();
     }
     /////////////////////////////////////////////
+    public int computeArea(int A, int B, int C, int D, int E, int F, int G, int H) {
+        int commonArea = computeCommonArea(A,B,C,D,E,F,G,H);
+        return (C - A) * (D - B) + (G - E)*(H - F) - commonArea;
+    }
+    public int computeCommonArea(int A, int B, int C, int D, int E, int F, int G, int H) {
+        int width = 0;
+        int height = 0;
+        if(C <= E || G <= A || H <= B || D <= F){
+            return 0;
+        }
+
+        // Get width
+        if(C <= G){
+            if(A>= E){
+                width = C - A;
+            }else{
+                width = C - E;
+            }
+        }else{
+            if(A >= E){
+                width = G - A;
+            }else{
+                width = G - E;
+            }
+        }
+
+        //Get Height
+        if(H <= D){
+            if(F>= B){
+                height = H - F;
+            }else{
+                height = H - B;
+            }
+        }else{
+            if(F >= B){
+                height = D - F;
+            }else{
+                height = D - B;
+            }
+        }
+        return height * width;
+    }
     /////////////////////////////////////////////
+    public int titleToNumber(String s) {
+        char[] array = s.toCharArray();
+        int sum = 0;
+        for(int i = 0; i < array.length ; i++){
+            int point = array[i] - 'A' + 1;
+            sum = sum * 26 + point;
+        }
+        return sum;
+    }
     /////////////////////////////////////////////
     /////////////////////////////////////////////
     /////////////////////////////////////////////
