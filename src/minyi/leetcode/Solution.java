@@ -848,6 +848,28 @@ public class Solution {
         return sum;
     }
     /////////////////////////////////////////////
+    public boolean isPalindrome(String s) {
+        s = s.toLowerCase();
+        char[] array = s.toCharArray();
+        int p1 = 0;
+        int p2 = array.length - 1;
+        while(p2 > p1){
+            if(!((array[p1] >= 'a' && array[p1] <= 'z') || (array[p1] >= '0' && array[p1] <= '9'))){
+                p1++;
+                continue;
+            }
+            if(!((array[p2] >= 'a' && array[p2] <= 'z') || (array[p2] >= '0' && array[p2] <= '9'))){
+                p2--;
+                continue;
+            }
+            if(array[p1] != array[p2]){
+                return false;
+            }
+            p1++;
+            p2--;
+        }
+        return true;
+    }
     /////////////////////////////////////////////
     /////////////////////////////////////////////
     /////////////////////////////////////////////
