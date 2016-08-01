@@ -871,8 +871,69 @@ public class Solution {
         return true;
     }
     /////////////////////////////////////////////
+    public int strStr(String haystack, String needle) {
+        for(int i = 0; i <= haystack.length() - needle.length(); i++){
+            int j = 0;
+            for(;j < needle.length(); j++){
+                if(haystack.charAt(i+j) != needle.charAt(j)){
+                    break;
+                }
+            }
+            if (j == needle.length()){
+                return i;
+            }
+        }
+        return -1;
+    }
     /////////////////////////////////////////////
+    public String zigZagConvert(String s, int numRows) {
+        StringBuilder[] sb = new StringBuilder[numRows];
+        for(int i = 0; i< numRows; i++){
+            sb[i] = new StringBuilder();
+        }
+        int idx  = 0;
+        while(idx < s.length()){
+            for(int i=0; i< numRows && idx < s.length() ; i++){
+                sb[i].append(s.charAt(idx++));
+            }
+            for(int i=numRows-2; i > 0 && idx < s.length(); i--){
+                sb[i].append(s.charAt(idx++));
+            }
+        }
+        StringBuilder resSb = new StringBuilder();
+        for(int i = 0;i < numRows; i++){
+            resSb.append(sb[i].toString());
+        }
+
+        return resSb.toString();
+    }
     /////////////////////////////////////////////
+    public int compareVersion(String version1, String version2) {
+        String[] versionArray1 = version1.split("\\.");
+        String[] versionArray2 = version2.split("\\.");
+        if(versionArray1.length > versionArray2.length){
+            for (int i = 0; i < versionArray1.length - versionArray2.length; i++){
+                version2 = version2 + ".0";
+            }
+            versionArray2 = version2.split("\\.");
+        }
+
+        if(versionArray2.length > versionArray1.length){
+            for (int i = 0; i < versionArray2.length - versionArray1.length; i++){
+                version1 = version1 + ".0";
+            }
+            versionArray1 = version1.split("\\.");
+        }
+        for(int i = 0; i < Math.min(versionArray1.length, versionArray2.length); i++){
+            int diff = Integer.valueOf(versionArray1[i]) - Integer.valueOf(versionArray2[i]);
+            if( diff > 0){
+                return 1;
+            }else if (diff < 0){
+                return -1;
+            }
+        }
+        return 0;
+    }
     /////////////////////////////////////////////
     /////////////////////////////////////////////
     /////////////////////////////////////////////
