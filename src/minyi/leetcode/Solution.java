@@ -935,6 +935,33 @@ public class Solution {
         return 0;
     }
     /////////////////////////////////////////////
+    public String countAndSay(int n) {
+        if(n == 1){
+            return "1";
+        }
+        String res = countAndSay(n-1);
+        StringBuilder sb = new StringBuilder();
+        char preChar = ' ';
+        int count = 0;
+        for(int i = 0; i < res.length(); i++){
+
+            if(res.charAt(i) != preChar){
+                sb.append(count);
+                sb.append(preChar);
+                preChar = (res.charAt(i));
+                count = 1;
+            }else {
+                count++;
+            }
+
+        }
+        if(count != 0){
+            sb.append(count);
+            sb.append(preChar);
+        }
+        sb.delete(0, 2);
+        return sb.toString();
+    }
     /////////////////////////////////////////////
     /////////////////////////////////////////////
     /////////////////////////////////////////////
