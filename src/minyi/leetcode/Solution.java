@@ -963,6 +963,28 @@ public class Solution {
         return sb.toString();
     }
     /////////////////////////////////////////////
+    public boolean isParenthesesValid(String s) {
+        Stack<Character> stack = new Stack<>();
+        char[] sArray = s.toCharArray();
+        for(int i = 0; i < sArray.length; i++){
+            if(sArray[i] == '(' || sArray[i] == '[' || sArray[i] == '{'){
+                stack.push(sArray[i]);
+            }else if(sArray[i] == ')'){
+                if (stack.empty() || stack.pop() != '('){
+                    return false;
+                }
+            }else if(sArray[i] == ']'){
+                if (stack.empty() || stack.pop() != '['){
+                    return false;
+                }
+            }else if(sArray[i] == '}'){
+                if (stack.empty() || stack.pop() != '{'){
+                    return false;
+                }
+            }
+        }
+        return stack.empty();
+    }
     /////////////////////////////////////////////
     /////////////////////////////////////////////
     /////////////////////////////////////////////
