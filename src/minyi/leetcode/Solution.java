@@ -986,6 +986,22 @@ public class Solution {
         return stack.empty();
     }
     /////////////////////////////////////////////
+    public int lengthOfLastWord(String s) {
+        s = s + " ";
+        int lengthLastWord = 0;
+        int idxLastSpace = -1;
+        for(int i = 0; i < s.length(); i++){
+            if(s.charAt(i) == ' '){
+
+                if(i - idxLastSpace - 1 > 0){
+                    lengthLastWord = i - idxLastSpace - 1;
+                }
+                idxLastSpace = i;
+                continue;
+            }
+        }
+        return lengthLastWord;
+    }
     /////////////////////////////////////////////
     /////////////////////////////////////////////
     /////////////////////////////////////////////
