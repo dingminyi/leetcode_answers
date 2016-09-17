@@ -1047,7 +1047,77 @@ public class Solution {
         return true;
     }
     /////////////////////////////////////////////
+    public int solution_saddle_point(int[][] A) {
+        if(A.length<3 || A[0].length<3){
+            return 0;
+        }
+
+        int count = 0;
+
+        for (int row = 1; row < A.length-1; row++){
+            for (int column = 1; column < A[0].length-1; column++){
+                int point = A[row][column];
+                if(point< A[row-1][column] && point < A[row+1][column] && point > A[row][column+1] && point > A[row][column-1]){
+                    count++;
+                    continue;
+                }
+                if(point > A[row-1][column] && point > A[row+1][column] && point < A[row][column+1] && point < A[row][column-1]){
+                    count++;
+                    continue;
+                }
+            }
+        }
+
+        return count;
+    }
     /////////////////////////////////////////////
+    public int solution_contiguous_group(int[] A) {
+        // write your code in Java SE 8
+        if(A.length == 1){
+            return 0;
+        }
+        int[] sorted_A = A.clone();
+        insertSort(sorted_A);
+        int pre_i = trim_min(A,sorted_A);
+        int post_i = trim_max(A,sorted_A);
+        if(pre_i == -1 || post_i==-1){
+            return 0;
+        }
+        return post_i - pre_i +1;
+    }
+
+    public int trim_min(int[] a,int[] sorted_A){
+        int[] a_sorted = sorted_A;
+        for(int i = 0 ;i<a.length;i++){
+            if (a[i] != a_sorted[i]){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int trim_max(int[] a,int[] sorted_A){
+        int[] a_sorted = sorted_A;
+        for(int i = a.length-1;i >= 0;i--){
+            if (a[i] != a_sorted[i]){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public static int[] insertSort(int[] args){
+        for(int i=1;i<args.length;i++){
+            for(int j=i;j>0;j--){
+                if (args[j]<args[j-1]){
+                    int temp=args[j-1];
+                    args[j-1]=args[j];
+                    args[j]=temp;
+                }else break;
+            }
+        }
+        return args;
+    }
     /////////////////////////////////////////////
     /////////////////////////////////////////////
     /////////////////////////////////////////////
