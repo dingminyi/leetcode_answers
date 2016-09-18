@@ -28,5 +28,7 @@ public class Main {
 //        //================165======================
 //        System.out.println(solution.compareVersion("1.0.1", "1.0"));
 //        solution.test();
+//        System.out.println(solution.solution_binary_period(100000000));
+        System.out.println(solution.solution_long_bit_count(100000000,100000000));
     }
 }

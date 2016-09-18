@@ -1119,8 +1119,111 @@ public class Solution {
         return args;
     }
     /////////////////////////////////////////////
+    int solution_binary_period(int n) {
+        int[] d = new int[30];
+        int l = 0;
+        int p;
+        while (n > 0) {
+            d[l] = n % 2;
+            n /= 2;
+            l++;
+        }
+        for (int i = 0; i<l;i++) {
+            System.out.print(d[i]);
+        }
+        System.out.println("\nlength:"+l);
+
+        for (p = 1; p < l; ++p) {
+            int i;
+            boolean ok = true;
+            for (i = 0; i < l - p; ++i) {
+                if (d[i] != d[i + p]) {
+                    ok = false;
+                    break;
+                }
+            }
+            if (ok) {
+                return p;
+            }
+        }
+        return -1;
+    }
     /////////////////////////////////////////////
+//    public int solution_adjancent_indices(int[] A) {
+//        // write your code in Java SE 8
+//        HashMap<Integer,Integer> indices_map = new HashMap<>();
+//        for(int i = 0;i< A.length;i++){
+//            if(!indices_map.containsKey(A[i])){
+//                indices_map.put(A[i],i);
+//            }
+//        }
+//        int[] sortedA = A.clone();
+//        Arrays.sort(sortedA);
+//        int length = sortedA.length;
+//        int max_distance = -1;
+//        for(int i=1;i<length;i++){
+//            if(sortedA[length - i] != sortedA[length - i - 1]){
+//                max_distance = Math.max(max_distance,
+//                        Math.abs(indices_map.get(sortedA[length - i]) - indices_map.get(sortedA[length - i - 1])));
+//            }
+//        }
+//        return max_distance;
+//    }
+    public int solution_adjancent_indices(int[] A) {
+        // write your code in Java SE 8
+        HashMap<Integer,MinMax> indices_map = new HashMap<>();
+        for(int i = 0;i< A.length;i++){
+            if(!indices_map.containsKey(A[i])){
+                MinMax mm = new MinMax(i);
+                indices_map.put(A[i],mm);
+            }else{
+                MinMax mm = indices_map.get(A[i]);
+                mm.setMax(i);
+            }
+        }
+        int[] sortedA = A.clone();
+        Arrays.sort(sortedA);
+        int length = sortedA.length;
+        int max_distance = -1;
+        for(int i=1;i<length;i++){
+            if(sortedA[length - i] != sortedA[length - i - 1]){
+                max_distance = Math.max(max_distance,
+                        Math.abs(indices_map.get(sortedA[length - i]).getMax() - indices_map.get(sortedA[length - i - 1]).getMin()));
+                max_distance = Math.max(max_distance,
+                        Math.abs(indices_map.get(sortedA[length - i - 1]).getMax() - indices_map.get(sortedA[length - i]).getMin()));
+            }
+        }
+        return max_distance;
+    }
+
+    class MinMax{
+        private int min = 0;
+        private int max = -1;
+
+        public MinMax(int min) {
+            this.min = min;
+        }
+
+        public void setMax(int max) {
+            this.max = max;
+        }
+
+        public int getMin() {
+            return min;
+        }
+
+        public int getMax() {
+            return max > 0?max:min;
+        }
+
+    }
     /////////////////////////////////////////////
+    public int solution_long_bit_count(int A, int B) {
+        // write your code in Java SE 8
+        long n = (long)A * (long)B;
+        return Long.bitCount(n);
+    }
+
     /////////////////////////////////////////////
     /////////////////////////////////////////////
     /////////////////////////////////////////////
